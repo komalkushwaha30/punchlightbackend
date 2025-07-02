@@ -2,6 +2,8 @@
 import Razorpay from 'razorpay';
 import Donor from '@/models/Donor';
 import dbConnect from '@/lib/dbConnect';
+import cors from '@/lib/cors'; // ✅ Import the CORS middleware
+
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -9,6 +11,9 @@ const razorpay = new Razorpay({
 });
 
 export default async function handler(req, res) {
+
+  await cors(req, res);
+
   if (req.method !== 'POST') return res.status(405).end();
 
   await dbConnect();

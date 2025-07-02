@@ -2,8 +2,12 @@
 import crypto from 'crypto';
 import Donor from '@/models/Donor';
 import dbConnect from '@/lib/dbConnect';
+import cors from '@/lib/cors'; // ✅ Add CORS middleware
+
 
 export default async function handler(req, res) {
+  await cors(req, res);
+
   if (req.method !== 'POST') return res.status(405).end();
 
   await dbConnect();
